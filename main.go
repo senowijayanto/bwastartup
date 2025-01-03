@@ -24,7 +24,7 @@ func main() {
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&user.User{})
+	// db.AutoMigrate(&user.User{}, &campaign.Campaign{}, &campaign.CampaignImage{})
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
