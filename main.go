@@ -27,7 +27,9 @@ func main() {
 	// db.AutoMigrate(&user.User{}, &campaign.Campaign{}, &campaign.CampaignImage{})
 
 	userRepository := user.NewRepository(db)
+
 	userService := user.NewService(userRepository)
+
 	authService := auth.NewService()
 	userHandler := handler.NewUserHandler(userService, authService)
 
