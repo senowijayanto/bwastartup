@@ -5,6 +5,7 @@ import "gorm.io/gorm"
 type Repository interface {
 	FindAll() ([]Campaign, error)
 	FindByUserID(userID int) ([]Campaign, error)
+	FindByID(id int) (Campaign, error)
 }
 
 type repository struct {
@@ -37,4 +38,16 @@ func (r *repository) FindByUserID(userID int) ([]Campaign, error) {
 	}
 
 	return campaigns, nil
+}
+
+func (r *repository) FindByID(id int) (Campaign, error) {
+	var campaign Campaign
+
+	err := r.db.Preload("User").Preload("CampaignImages").First(&campaign, id).Error
+
+	if err != nil {
+		return campaign, err
+	}
+
+	return campaign, nil
 }
